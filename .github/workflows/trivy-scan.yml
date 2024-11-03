@@ -1,0 +1,31 @@
+name: Docker Image Vulnerability Scan
+
+on:
+  push:
+    branches:
+      - main  # Run the workflow on pushes to the main branch
+  pull_request:
+    branches:
+      - main  # Run the workflow on pull requests to the main branch
+
+jobs:
+  trivy-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Build the Docker image
+      - name: Build Docker image
+        run: docker build -t lukasdotcom/fantasy-manager:1 .
+
+      # Step 3: Run Trivy scan on the Docker image
+      - name: Run Trivy vulnerability scan
+        uses: aquasecurity/trivy-action@v0.11.0
+        with:
+          image-ref: lukasdotcom/fantasy-manager:1 
+          format: table  # or 'json' for JSON output
+          exit-code: 1   # Exit with code 1 if vulnerabilities are found
+          severity: HIGH,CRITICAL  # Specify severity levels to detect

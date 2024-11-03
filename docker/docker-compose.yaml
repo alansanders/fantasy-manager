@@ -3,14 +3,14 @@ services:
   bundesliga:
     image: lukasdotcom/fantasy-manager:1 # Change 1 to latest if you want the last stable release. Major versions may have trouble between upgrades read the release before any update.
     container_name: bundesliga
-    links:
-      - db
+    # links:
+    #   - db
     environment:
       - NEXTAUTH_URL=http://localhost # The url of the server
       - SQLITE=/mnt/bundesliga.db
       - MIN_UPDATE_TIME=120
       - MIN_UPDATE_TIME_TRANSFER=3600
-      - NEXTAUTH_SECRET= # run openssl rand -base64 32 and plug the result into this
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET} # run openssl rand -base64 32 and plug the result into this
       - ADMIN=1
     ports:
       - 80:3000
@@ -21,6 +21,7 @@ services:
     #  - pictures:/app/players
 volumes:
   bundesliga:
-    external: true
+  # bundesliga:
+  #   external: true
   #pictures:
   #  external: true
