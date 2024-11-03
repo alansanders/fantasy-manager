@@ -23,7 +23,7 @@ jobs:
 
       # Step 3: Run Trivy scan on the Docker image
       - name: Run Trivy vulnerability scan
-        uses: aquasecurity/trivy-action@v0.11.0
+        uses: aquasecurity/trivy-action@0.28.0
         with:
           image-ref: lukasdotcom/fantasy-manager:1 
           format: table  # or 'json' for JSON output
